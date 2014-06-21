@@ -4,6 +4,8 @@ PROG: beads
 LANG: C++
 */
 
+//A O(N^2) solution; not pretty, but N is < 305
+
 #include <iostream>
 #include <fstream> 
 
