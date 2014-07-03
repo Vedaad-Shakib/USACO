@@ -1,5 +1,5 @@
 # Object files
-*.o
+a.out
 
 # Backup emacs files
 *.cpp~
