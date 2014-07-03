@@ -1,0 +1,5 @@
+# Object files
+*.o
+
+# Backup emacs files
+*.cpp~
