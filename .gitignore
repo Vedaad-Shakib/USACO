@@ -6,7 +6,11 @@ a.out
 
 # Backup emacs files
 *.cpp~
+*.in~
+*.out~
+makefile~
 
 # I have no idea what these are, but they randomly appear
 \#*.cpp\#
-.\#*.cpp*
+\#*.in\#
+\#*.out\#
