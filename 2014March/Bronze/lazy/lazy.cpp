@@ -9,59 +9,40 @@ typedef long double ld;
 typedef pair<int, int> pii;
 
 #define debug(a) cout << #a << ": " << (a) << endl;
+#define MAX_X 1000000
 
-struct grass {
-  int location;
-  int nGrasses;
-};
-
-bool compare(const grass &a, const grass &b) {
-  return a.location < b.location;
-}
+int grasses[MAX_X+1] = {0};
+int n;
+int k;
+int maxGrass = 0;
+int curr = 0;
 
 int main() {
   freopen("lazy.in", "r", stdin);
   freopen("lazy.out", "w", stdout);
-
-  int n, k, maxGrasses = 0, rightIndex, leftIndex = 0, nCurrentGrasses = 0;
-  struct grass tempGrass;
-  //struct grass *grasses;
-  cin >> n >> k;
-  struct grass grasses[n];
-
-  //grasses = (struct grass *) malloc(sizeof(grass) * n);
+  
+  cin >> n;
+  cin >> k;
 
   for (int i = 0; i < n; i++) {
-    struct grass temp;
-    cin >> temp.nGrasses >> temp.location;
-    grasses[i] = temp;
+      int grass, pos;
+      cin >> grass >> pos;
+      grasses[pos] = grass;
   }
 
-  sort(grasses, grasses+n, compare);
+  for (int i = 0; i < 2*k && i < MAX_X; i++) {
+      curr += grasses[i];
+  }
   
-  // get initial nRightGrasses
-  for (rightIndex = 0; rightIndex < n && grasses[rightIndex].location <= k * 2; rightIndex++) {
-    nCurrentGrasses += grasses[rightIndex].nGrasses;
+  maxGrass = curr;
+
+  for (int i = k; i < MAX_X-k; i++) {
+      curr -= grasses[i-k-1];
+      curr += grasses[i+k];
+      maxGrass = max(maxGrass, curr);
   }
 
-  // iterate through and check greedily
-  for (int i = k; rightIndex < n; i++) {
-
-    if (i - grasses[leftIndex].location > k) {
-      nCurrentGrasses -= grasses[leftIndex].nGrasses;
-      leftIndex++;
-    }
-
-    if (grasses[rightIndex].location - i <= k) {
-      nCurrentGrasses += grasses[rightIndex].nGrasses;
-      rightIndex++;
-    }
-
-    if (nCurrentGrasses > maxGrasses)
-      maxGrasses = nCurrentGrasses;
-  }
-
-  cout << maxGrasses << endl;
+  cout << maxGrass << endl;
 
   return 0;
 }
